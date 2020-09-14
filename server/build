@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo "... Build: sys/stars.out -> sys/stars.cc."
+g++ -o sys/stars.out -fPIC sys/stars.cc
+echo '... Done.'

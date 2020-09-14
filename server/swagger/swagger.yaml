@@ -1,0 +1,403 @@
+---
+swagger: "2.0"
+info:
+  description: "This is a first draft of the STARS Service API \n"
+  version: "1.0.0"
+  title: "STARS Service"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "obrien.200@osu.edu"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "virtserver.swaggerhub.com"
+basePath: "/"
+tags:
+- name: "job"
+  description: "Create and access long-running simulation jobs"
+- name: "service"
+  description: "Operations provided by the STARS Service"
+schemes:
+- "https"
+- "http"
+paths:
+  /service:
+    get:
+      tags:
+      - "service"
+      summary: "Get information about the STARS Service"
+      description: "Returns a job's output"
+      operationId: "get_service_info"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ServiceInfo"
+      x-swagger-router-controller: "swagger_server.controllers.service_controller"
+  /service/restart:
+    get:
+      tags:
+      - "service"
+      summary: "Restarts the STARS Service"
+      description: "Clear all jobs and restart the STARS Service"
+      operationId: "restart_service"
+      parameters: []
+      responses:
+        "200":
+          description: "successful operation"
+      x-swagger-router-controller: "swagger_server.controllers.service_controller"
+  /service/listJobs:
+    get:
+      tags:
+      - "service"
+      summary: "List all jobs"
+      description: "Get a list of all job IDs currently used by the STARS Service"
+      operationId: "get_job_list"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JobList"
+      x-swagger-router-controller: "swagger_server.controllers.service_controller"
+  /service/validate:
+    post:
+      tags:
+      - "service"
+      summary: "Validate Simulation Config"
+      description: "Validate JSON for a STARS Simulation Configuration"
+      operationId: "validate_json"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "config"
+        description: "STARS Simulation Config JSON Object"
+        required: true
+        schema:
+          $ref: "#/definitions/SimulationConfig"
+      responses:
+        "200":
+          description: "valid simulation config"
+        "400":
+          description: "invalid simulation config"
+      x-swagger-router-controller: "swagger_server.controllers.service_controller"
+  /job:
+    post:
+      tags:
+      - "job"
+      summary: "Create a new job"
+      operationId: "create_job"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Job object that needs to be added to the queue"
+        required: true
+        schema:
+          $ref: "#/definitions/Job"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JobInfo"
+        "405":
+          description: "Invalid input"
+      x-swagger-router-controller: "swagger_server.controllers.job_controller"
+  /job/{jobID}:
+    get:
+      tags:
+      - "job"
+      summary: "Find job by ID"
+      description: "Returns the status of a job that was submitted"
+      operationId: "get_job_by_id"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "jobID"
+        in: "path"
+        description: "ID of job to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JobStatus"
+        "400":
+          description: "Invalid Job ID supplied"
+        "404":
+          description: "Job not found"
+      x-swagger-router-controller: "swagger_server.controllers.job_controller"
+    delete:
+      tags:
+      - "job"
+      summary: "Deletes a job"
+      operationId: "delete_job"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "jobID"
+        in: "path"
+        description: "Job ID to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "400":
+          description: "Invalid Job ID supplied"
+        "404":
+          description: "Job not found"
+      x-swagger-router-controller: "swagger_server.controllers.job_controller"
+  /job/{jobID}/output:
+    get:
+      tags:
+      - "job"
+      summary: "Get a job's output"
+      description: "Returns url information to download a job's output log and data\
+        \ files"
+      operationId: "get_job_output_by_id"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "jobID"
+        in: "path"
+        description: "ID of job to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JobOutput"
+        "400":
+          description: "Invalid job ID supplied"
+        "404":
+          description: "Job output not found"
+      x-swagger-router-controller: "swagger_server.controllers.job_controller"
+    post:
+      tags:
+      - "job"
+      summary: "Request specific fields of a job's output"
+      description: "Returns url information to download a job's output log and data\
+        \ files"
+      operationId: "get_job_output_by_request"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "jobID"
+        in: "path"
+        description: "ID of job to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "RequestedOutput"
+        description: "Log level and output data fields"
+        required: true
+        schema:
+          $ref: "#/definitions/JobOutputRequest"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JobOutput"
+        "400":
+          description: "Invalid job ID supplied"
+        "404":
+          description: "Job output not found"
+      x-swagger-router-controller: "swagger_server.controllers.job_controller"
+    delete:
+      tags:
+      - "job"
+      summary: "Deletes a job's output"
+      operationId: "delete_job_output"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "jobID"
+        in: "path"
+        description: "Job ID of output to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "400":
+          description: "Invalid Job ID supplied"
+        "404":
+          description: "Job not found"
+      x-swagger-router-controller: "swagger_server.controllers.job_controller"
+definitions:
+  SimulationConfig:
+    type: "object"
+    properties:
+      label:
+        type: "string"
+        example: "Test"
+    example:
+      label: "Test"
+  ServiceInfo:
+    type: "object"
+    properties:
+      label:
+        type: "string"
+        example: "STARS Service"
+      version:
+        type: "string"
+        example: "1.0.0"
+      author:
+        type: "string"
+        example: "The Ohio State University"
+      updated:
+        type: "string"
+        format: "date-time"
+        description: "Datetime the service was last updated"
+      host:
+        type: "string"
+        example: "Host server description"
+    example:
+      author: "The Ohio State University"
+      host: "Host server description"
+      label: "STARS Service"
+      version: "1.0.0"
+      updated: "2000-01-23T04:56:07.000+00:00"
+  JobInfo:
+    type: "object"
+    properties:
+      job_id:
+        type: "integer"
+        format: "int64"
+        example: 101
+    example:
+      job_id: 101
+  JobStatus:
+    type: "object"
+    properties:
+      jobID:
+        type: "integer"
+        format: "int64"
+        example: 101
+      label:
+        type: "string"
+        example: "STARS Sim. Scenario 5"
+      owner:
+        type: "string"
+        example: "TAT-C Host"
+      time_submitted:
+        type: "string"
+        format: "date-time"
+        description: "Datetime job started running"
+      time_started:
+        type: "string"
+        format: "date-time"
+        description: "Datetime job started running"
+      time_completed:
+        type: "string"
+        format: "date-time"
+        description: "Datetime job finished running"
+      status:
+        type: "string"
+        description: "Job execution status"
+        enum:
+        - "pending"
+        - "running"
+        - "failed"
+        - "success"
+    example:
+      owner: "TAT-C Host"
+      jobID: 101
+      time_started: "2000-01-23T04:56:07.000+00:00"
+      time_completed: "2000-01-23T04:56:07.000+00:00"
+      label: "STARS Sim. Scenario 5"
+      time_submitted: "2000-01-23T04:56:07.000+00:00"
+      status: "pending"
+  JobOutput:
+    type: "object"
+    properties:
+      jobID:
+        type: "integer"
+        format: "int64"
+        example: 101
+      url_log:
+        type: "string"
+        example: "/path/stars_log_101.txt"
+      url_data:
+        type: "string"
+        example: "/path/stars_data_101.nc"
+      time_produced:
+        type: "string"
+        format: "date-time"
+        description: "Datetime output data was produced"
+      status:
+        type: "string"
+        description: "Job execution status"
+        enum:
+        - "success"
+        - "pending"
+        - "running"
+        - "failed"
+    example:
+      time_produced: "2000-01-23T04:56:07.000+00:00"
+      jobID: 101
+      url_log: "/path/stars_log_101.txt"
+      url_data: "/path/stars_data_101.nc"
+      status: "success"
+  JobOutputRequest:
+    type: "object"
+    properties:
+      output_groups:
+        type: "array"
+        items:
+          type: "string"
+      log_level:
+        type: "string"
+        description: "Log level to produce"
+        enum:
+        - "ALL"
+        - "TRACE"
+        - "DEBUG"
+        - "INFO"
+        - "WARN"
+        - "ERROR"
+        - "FATAL"
+        - "OFF"
+  JobList:
+    type: "array"
+    items:
+      type: "integer"
+      format: "int64"
+  Job:
+    type: "object"
+    required:
+    - "label"
+    properties:
+      label:
+        type: "string"
+        example: "STARS Sim. Scenario 5"
+        description: "Identifies the job"
+      owner:
+        type: "string"
+        example: "TAT-C Host"
+        description: "Identifies the submitter of the job"
+      token:
+        type: "integer"
+        format: "int64"
+        example: 123456
+        description: "Random token to prevent duplicate submission"
+    example:
+      owner: "TAT-C Host"
+      label: "STARS Sim. Scenario 5"
+      token: 123456
