@@ -33,7 +33,13 @@ The Dockerfile is curently set to use the host network and runs the webserver on
 
 ## Testing the STARS Service with a Client
 
-A simple Python3 REST Client example program is provided to interface with the Webserve and exercise different functions.  To try it, run './client/test.py'
+A simple Python3 REST Client example program is provided to interface with the Webserve and exercise different functions.  To try it, 
+```
+./client/test.py
+```
 
 Alternatively, you can point a browser to 'http://localhost:8080/ui` to see the Swagger UI interface and explore the API.
 
+---
+
+*Authors: Andrew O'Brien & Ryan Linnabary*
