@@ -12,28 +12,36 @@ A simulation job is created by submitting a JSON-formatted simulation configurat
 
 Please see [JSON Format Wikipage](https://github.com/aobrien/stars-service/wiki/JSON-Format-for-STARS-Simulation-Configuration) for the latest JSON format information.
 
-## Building & Running STARS Service Container
+## Using the STARS Service
 
-First, clone this repository from GitHub:
+### Downloading Prebuilt STARS Service Docker Image
+The prebuilt STARS-Service Docker image is available on [DockerHub](https://hub.docker.com/r/aobrien200/stars-service).  An automatic build process updates the image as this repo is updated.  The image can be downloaded by running
+```
+docker pull aobrien200/stars-service:latest
+```
+
+### Building the STARS Service Docker Image
+Alternatively, the image can be built from the source code in this repo.  First, clone this repo from GitHub:
 ```
 git clone https://github.com/aobrien/stars-service.git
 ```
-Next, you will need to build the stars-service Docker image.  The image is currently based on Ubuntu 20.04, although future work will emphasize a lightweight base.  Two shell scripts are provided for building and running the container on a Linux host (note, it has only been tested with Ubuntu 20.04).  
+To build the stars-service image, run the following command in the root directory:
+```
+docker build --network="host" -t aobrien200/stars-service .
+```
+The image is currently based on Ubuntu 20.04, although future work will emphasize a more lightweight base.  
 
-To build the stars-service image, run:
-```
-./docker_build_stars_service.sh
-```
-Once built, run the stars-service in a container using:
+### Running STARS Service Container
+
+Run the stars-service in a container using:
 ```
 ./docker_run_stars_service.sh
 ```
-
 The Stars Service Dockerfile is curently configured to use the host network and runs the webserver on port 8080. 
 
 ## Testing the STARS Service with a REST Client
 
-A simple Python3 REST Client example program is provided to interface with the Webserve and exercise different functions.  To try it, 
+A simple Python3 REST Client example program is provided to interface with the Webserve and exercise different functions, 
 ```
 ./client/test.py
 ```
