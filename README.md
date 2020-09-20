@@ -1,4 +1,4 @@
-# STARS Service - REST API Implementation
+# STARS Service 
 
 **STARS COLLABORATE** is a C++ library for simulation of constellations of adaptive and collarborate satellite systems.  The library was orginally developed by Ryan Linnabary and distributed on GitHub [here](https://github.com/linnabary/collaborate).  A new version has been [forked](https://github.com/aobrien/stars-collaborate) and forms the basis for this service.  
 
@@ -8,9 +8,7 @@ The **STARS-Service API** is formally defined in Swagger YAML and can be explore
 
 ## JSON and the STARS-Service API
 
-A STARS COLLABORATE simulation job is created by submitting a JSON-formatted simulation configuration. An example .json file is available [here](https://github.com/aobrien/stars-service/blob/master/json/example.json).  The JSON schema is currently a DRAFT version and is still being revised as development continues. We are utilizing the official [JSON Schema](https://json-schema.org)
-
-For a detailed explaination of the JSON format, please see the [JSON Format Wikipage](https://github.com/aobrien/stars-service/wiki/JSON-Format-for-STARS-Simulation-Configuration).
+A STARS COLLABORATE simulation job is created by submitting a JSON-formatted simulation configuration. An example .json file is available [here](https://github.com/aobrien/stars-service/blob/master/json/example.json).  We are utilizing the official [JSON Schema](https://json-schema.org) for annotation and partial validation of simulation configurations.  The JSON schema is currently a DRAFT version and is still being revised as development continues, but please see the [JSON Format Wikipage](https://github.com/aobrien/stars-service/wiki/JSON-Format-for-STARS-Simulation-Configuration) for detailed information.
 
 The STARS-Service API calls also use JSON formatted input and outputs, as described at the [STARS-Service on SwaggerHub](https://app.swaggerhub.com/apis/aobrien/STARS-Service).
 
