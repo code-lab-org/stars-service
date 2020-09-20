@@ -28,8 +28,8 @@
                 { "efficiency_percent": 29, "surface_area_m2": 0.06, "orientation_deg": [0,0,0] }
             ]
         }
-        
     }
+ }
  ],
   "simulation_settings": {
     "kSecondsPerTick": 1,
