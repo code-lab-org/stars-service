@@ -6,11 +6,13 @@ The **STARS Service** is an HTTP-based RESTful web service that provides a simpl
 
 The **STARS-Service API** is formally defined in Swagger YAML and can be explored online at [STARS-Service on SwaggerHub](https://app.swaggerhub.com/apis/aobrien/STARS-Service)
 
-## Configuring a Simulation with JSON
+## JSON and the STARS-Service API
 
-A simulation job is created by submitting a JSON-formatted simulation configuration. 
+A STARS COLLABORATE simulation job is created by submitting a JSON-formatted simulation configuration. An example .json file is available [here](https://github.com/aobrien/stars-service/blob/master/json/example.json).  The JSON schema is currently a DRAFT version and is still being revised as development continues. We are utilizing the official [JSON Schema](https://json-schema.org)
 
-Please see [JSON Format Wikipage](https://github.com/aobrien/stars-service/wiki/JSON-Format-for-STARS-Simulation-Configuration) for the latest JSON format information.
+For a detailed explaination of the JSON format, please see the [JSON Format Wikipage](https://github.com/aobrien/stars-service/wiki/JSON-Format-for-STARS-Simulation-Configuration).
+
+The STARS-Service API calls also use JSON formatted input and outputs, as described at the [STARS-Service on SwaggerHub](https://app.swaggerhub.com/apis/aobrien/STARS-Service).
 
 ## Using the STARS Service
 
