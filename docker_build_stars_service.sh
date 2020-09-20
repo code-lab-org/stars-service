@@ -1,4 +1,4 @@
 #!/bin/bash
 
-docker build -t stars-service --network="host" .
+docker build --network="host" -t aobrien200/stars-service .
 

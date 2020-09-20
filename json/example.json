@@ -1,0 +1,38 @@
+{
+  "satellites": [
+    {
+      "label":"Example Constellation",
+      
+      "orbit_tle_file": { "orbit_type": "TLE_FILE", "tle_path": "input/tle/cubesat.tle", "tle_index": [0] },
+      
+      "payload": {
+      
+        "subsystem_antennas": [
+            { "label": "comm_antenna", "antenna_dipole":{ "@type":"ANTENNA", "max_gain_db": 30} },
+            { "label": "sensor_antenna", "antenna_helical":{ "@type":"ANTENNA", "max_gain_db": 30 } }
+        ],
+      
+        "subsystem_sensing": [
+            {
+                "label":"sensor_cloud_radar",
+                "sensor_cloud_radar": {"@type":"SENSOR", "path": "input/nc4/","duration_s": 10,"antenna_name": "sensor_antenna"}
+            }
+        ],
+      
+        "subsystem_comm": [  { "label":"UHF modem",  "comm_modem_rf": { "antenna_name": "comm_antenna"} } ],
+      
+        "subsystem_power": {
+            "idle_power_w": 6.2425,
+            "battery": { "cell_amp_hr": 0.9333, "num_cells": 6,  "voltage_v": 12.9,   "charging_efficiency_percent": 85},
+            "solar_panels": [
+                { "efficiency_percent": 29, "surface_area_m2": 0.06, "orientation_deg": [0,0,0] }
+            ]
+        }
+        
+    }
+ ],
+  "simulation_settings": {
+    "kSecondsPerTick": 1,
+    "kNumTicks": 3600
+  }
+}
