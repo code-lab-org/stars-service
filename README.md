@@ -35,9 +35,15 @@ The image is currently based on Ubuntu 20.04, although future work will emphasiz
 
 Run the stars-service in a container using:
 ```
+docker run -p 8080:8080 --network="host" \
+       -v $(pwd)/workspace:/workspace \
+       aobrien200/stars-service
+```
+or the shell script       
+```
 ./docker_run_stars_service.sh
 ```
-The Stars Service Dockerfile is curently configured to use the host network and runs the webserver on port 8080. 
+It is curently designed to use the host network via port 8080 (although this may change in the future). 
 
 ## Testing the STARS Service with a REST Client
 
