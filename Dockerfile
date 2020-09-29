@@ -55,8 +55,8 @@ COPY server /server
 RUN ln -sf /workspace/out /server/out
 
 WORKDIR /server
-CMD ["/server/cmd.sh"]
+# CMD ["/server/cmd.sh"]
 
 # make interactive for debugging
-# CMD /bin/bash
+CMD /bin/bash
 
