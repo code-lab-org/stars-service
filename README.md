@@ -14,6 +14,21 @@ The STARS-Service API calls also use JSON formatted input and outputs, as descri
 
 ## Using the STARS Service
 
+### Setting up fresh Ubuntu Installation
+If you are starting from a fresh Ubuntu 20.04 installation, the only requirements are git and docker:
+```
+sudo apt install git docker.io
+```
+After installing docker, you will likely want to run it as a non-root user.  You then need to get permission to access the Docker daemon socket.  Run
+```
+sudo groupadd docker
+sudo usermod -aG docker ${USER}
+```
+and then log out and back in again. Test docker using
+```
+docker run hello-world
+```
+
 ### Downloading Prebuilt STARS Service Docker Image
 The prebuilt STARS-Service Docker image is available on [DockerHub](https://hub.docker.com/r/aobrien200/stars-service).  An automatic build process updates the image as this repo is updated.  The image can be downloaded by running
 ```
