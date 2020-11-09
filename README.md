@@ -19,7 +19,7 @@ If you are starting from a fresh Ubuntu 20.04 installation, the only requirement
 ```
 sudo apt install git docker.io
 ```
-After installing docker, you will likely want to run it as a non-root user.  You then need to get permission to access the Docker daemon socket.  Run
+After installing docker, you will likely want to run it as a non-root user.  You then need to get permission to access the Docker daemon socket ([more information](https://docs.docker.com/engine/install/linux-postinstall/)).  Run
 ```
 sudo groupadd docker
 sudo usermod -aG docker ${USER}
