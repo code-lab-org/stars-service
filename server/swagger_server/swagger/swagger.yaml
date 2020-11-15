@@ -10,8 +10,7 @@ info:
   license:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-host: "virtserver.swaggerhub.com"
-basePath: "/"
+basePath: "/stars/"
 tags:
 - name: "job"
   description: "Create and access long-running simulation jobs"
@@ -383,6 +382,7 @@ definitions:
     type: "object"
     required:
     - "label"
+    - "simulation_config"
     properties:
       label:
         type: "string"
@@ -392,6 +392,9 @@ definitions:
         type: "string"
         example: "TAT-C Host"
         description: "Identifies the submitter of the job"
+      simulation_config:
+        type: "object"
+        properties: {}
       token:
         type: "integer"
         format: "int64"
@@ -399,5 +402,6 @@ definitions:
         description: "Random token to prevent duplicate submission"
     example:
       owner: "TAT-C Host"
+      simulation_config: "{}"
       label: "STARS Sim. Scenario 5"
       token: 123456

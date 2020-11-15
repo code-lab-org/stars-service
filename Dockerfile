@@ -41,12 +41,12 @@ RUN pip3 install pandas
 RUN pip3 install pillow
 RUN pip3 install cartopy
 
+EXPOSE 8080
+
 # build STARS COLLABORATE (draft)
 RUN wget https://github.com/aobrien/stars-collaborate/archive/master.zip
 RUN unzip master.zip
 RUN cd stars-collaborate-master; mkdir build; cd build; cmake ..; make
-
-EXPOSE 8080
 
 VOLUME /workspace
 
@@ -58,5 +58,5 @@ WORKDIR /server
 # CMD ["/server/cmd.sh"]
 
 # make interactive for debugging
-CMD /bin/bash
+CMD ["/bin/bash"]
 

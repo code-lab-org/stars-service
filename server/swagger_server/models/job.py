@@ -15,30 +15,35 @@ class Job(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, label: str=None, owner: str=None, token: int=None):  # noqa: E501
+    def __init__(self, label: str=None, owner: str=None, simulation_config: object=None, token: int=None):  # noqa: E501
         """Job - a model defined in Swagger
 
         :param label: The label of this Job.  # noqa: E501
         :type label: str
         :param owner: The owner of this Job.  # noqa: E501
         :type owner: str
+        :param simulation_config: The simulation_config of this Job.  # noqa: E501
+        :type simulation_config: object
         :param token: The token of this Job.  # noqa: E501
         :type token: int
         """
         self.swagger_types = {
             'label': str,
             'owner': str,
+            'simulation_config': object,
             'token': int
         }
 
         self.attribute_map = {
             'label': 'label',
             'owner': 'owner',
+            'simulation_config': 'simulation_config',
             'token': 'token'
         }
 
         self._label = label
         self._owner = owner
+        self._simulation_config = simulation_config
         self._token = token
 
     @classmethod
@@ -99,6 +104,29 @@ class Job(Model):
         """
 
         self._owner = owner
+
+    @property
+    def simulation_config(self) -> object:
+        """Gets the simulation_config of this Job.
+
+
+        :return: The simulation_config of this Job.
+        :rtype: object
+        """
+        return self._simulation_config
+
+    @simulation_config.setter
+    def simulation_config(self, simulation_config: object):
+        """Sets the simulation_config of this Job.
+
+
+        :param simulation_config: The simulation_config of this Job.
+        :type simulation_config: object
+        """
+        if simulation_config is None:
+            raise ValueError("Invalid value for `simulation_config`, must not be `None`")  # noqa: E501
+
+        self._simulation_config = simulation_config
 
     @property
     def token(self) -> int:
