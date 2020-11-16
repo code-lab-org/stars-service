@@ -48,15 +48,17 @@ RUN wget https://github.com/aobrien/stars-collaborate/archive/master.zip
 RUN unzip master.zip
 RUN cd stars-collaborate-master; mkdir build; cd build; cmake ..; make
 
-VOLUME /workspace
-
 COPY server /server
 
-RUN ln -sf /workspace/out /server/out
+# TODO: find way to make data persistent
+# VOLUME /workspace
+
+# TODO: find way to make data persistent
+# RUN ln -sf /workspace/out /server/out
 
 WORKDIR /server
-# CMD ["/server/cmd.sh"]
+CMD ["/server/cmd.sh"]
 
 # make interactive for debugging
-CMD ["/bin/bash"]
+# CMD ["/bin/bash"]
 
