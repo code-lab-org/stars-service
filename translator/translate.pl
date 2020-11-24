@@ -8,7 +8,7 @@
 use JSON::Parse 'parse_json';
 use Data::Dumper;
 
-do 'subroutines.pl';
+do './subroutines.pl';
 
 $json = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
 

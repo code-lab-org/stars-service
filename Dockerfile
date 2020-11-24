@@ -41,6 +41,12 @@ RUN pip3 install pandas
 RUN pip3 install pillow
 RUN pip3 install cartopy
 
+# Install perl modules 
+RUN apt install -y perl
+RUN apt install -y gcc
+RUN apt-get install -y cpanminus
+RUN cpanm JSON::Parse 
+
 EXPOSE 8080
 
 # build STARS COLLABORATE (draft)
@@ -49,12 +55,17 @@ RUN unzip master.zip
 RUN cd stars-collaborate-master; mkdir build; cd build; cmake ..; make
 
 COPY server /server
+COPY translator /translator
 
 # TODO: find way to make data persistent
 # VOLUME /workspace
 
 # TODO: find way to make data persistent
 # RUN ln -sf /workspace/out /server/out
+
+RUN ln -sf /server/out /server/static/out
+
+RUN cd /stars-collaborate-master/apps; echo "add_subdirectory(job)" >> CMakeLists.txt; ln -s /translator job
 
 WORKDIR /server
 CMD ["/server/cmd.sh"]

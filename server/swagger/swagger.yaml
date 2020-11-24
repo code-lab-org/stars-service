@@ -402,6 +402,6 @@ definitions:
         description: "Random token to prevent duplicate submission"
     example:
       owner: "TAT-C Host"
-      simulation_config: "{}"
+      simulation_config: {}
       label: "STARS Sim. Scenario 5"
       token: 123456
