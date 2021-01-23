@@ -42,8 +42,8 @@ namespace collaborate {
 void SimpleObservingSystemSimulation() {
     
   // Simulation Parameters
-  constexpr uint64_t kNumTicks = 10000;
-  constexpr uint64_t kSecondsPerTick = 1;
+  constexpr uint64_t kNumTicks = %KNUMTICKS%;
+  constexpr uint64_t kSecondsPerTick = %KSECONDSPERTICK%;
 
   // Loggers
   DataLogger data_log("output/data.nc4");

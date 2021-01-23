@@ -70,6 +70,6 @@ RUN cd /stars-collaborate-master/apps; echo "add_subdirectory(job)" >> CMakeList
 WORKDIR /server
 CMD ["/server/cmd.sh"]
 
-# make interactive for debugging
+# uncomment this to make interactive for debugging
 # CMD ["/bin/bash"]
 

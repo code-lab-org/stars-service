@@ -1,0 +1,22 @@
+{
+  "satellites": [
+  {
+    "label":"Constellation 1",
+    "orbit_generator": {
+	        "@type":"ORBIT",
+	        "tle_path": "input/tle/cubesat.tle",
+	        "tle_index": [ 14 ],
+	        "orbit_planes": 1,
+	        "groups_per_plane": 5,
+	        "sats_in_train": 1,
+	        "sats_in_tandem": 1,
+	        "train_angle": 0,
+	        "tandem_angle": 0
+	}
+  }		
+  ],
+  "simulation_settings": {
+    "kSecondsPerTick": 1,
+    "kNumTicks": 3600
+  }
+}

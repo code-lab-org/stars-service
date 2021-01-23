@@ -28,6 +28,7 @@ def create_job(body):  # noqa: E501
 
     :rtype: JobInfo
     """
+    
     service_file = pl.Path('out/service.json')
     service = json.loads(open(service_file, 'r').read())
     flag = True
@@ -40,18 +41,38 @@ def create_job(body):  # noqa: E501
         if job_id not in job_ids:
             flag = False
         counter += 1
-
+    
     workspace = pl.Path('out') / job_id
     workspace.mkdir(exist_ok=True, parents=True)
+    
+    # dump json config to file
+
+    json_file = (workspace / job_id).with_suffix('.json')
+    json_output = json.dumps(body['simulation_config'], indent=2)
+    open(json_file, 'w').write(json_output)
+
+    print('\nWriting JSON to file:\n');
+    print(json_output)
+    print('\n\n');
+    
+    # call translator
     source = (workspace / job_id).with_suffix('.cc')
-    shutil.copy('sys/stars.cc', source)
+    subprocess.check_call(['perl', '/translator/translate.pl', json_file, source])            
+
+    #source = (workspace / job_id).with_suffix('.cc')
+    #shutil.copy('sys/stars.cc', source)
+
     executable = source.parent / (source.stem + '.out')
-    subprocess.check_call(['g++', '-o', executable, '-fPIC', source])
-    proc = subprocess.Popen(f'./{executable} {workspace}', shell=True)
+    
+    #subprocess.check_call(['g++', '-o', executable, '-fPIC', source])
+    
+    subprocess.check_call(['sh', '/server/stars_app_build.sh', job_id])
+    
+    #proc = subprocess.Popen(f'./{executable} {workspace}', shell=True)
     job_info = {'job_id': str(job_id),
                 'label': body['label'],
                 'owner': body['owner'],
-                'pid': proc.pid+1,
+                'pid': 1, #proc.pid+1,
                 'status': 'running',
                 'url_log': str(workspace / 'log.txt'),
                 'url_data': str(workspace / 'data.nc4')}

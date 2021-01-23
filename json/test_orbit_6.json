@@ -1,0 +1,16 @@
+{
+  "satellites": [
+  {
+    "label":"Satellite Big Group",	
+    "orbit_tle_file": {
+	        "@type":"ORBIT",
+	        "tle_path": "input/tle/cubesat.tle",
+	        "tle_index": [ ]
+	}
+  }		
+  ],
+  "simulation_settings": {
+    "kSecondsPerTick": 1,
+    "kNumTicks": 3600
+  }
+}

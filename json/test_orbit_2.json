@@ -1,0 +1,24 @@
+{
+  "satellites": [
+  {
+    "label":"Satellite 1",	
+    "orbit_tle_file": {
+	        "@type":"ORBIT",
+	        "tle_path": "input/tle/cubesat.tle",
+	        "tle_index": [ 0 ]
+	}
+  },
+  {
+    "label":"Satellite Group 1",	
+    "orbit_tle_file": {
+	        "@type":"ORBIT",
+	        "tle_path": "input/tle/cubesat.tle",
+	        "tle_index": [ 1, 3, 4, 10, 11 ]
+	}
+  }		
+  ],
+  "simulation_settings": {
+    "kSecondsPerTick": 1,
+    "kNumTicks": 3600
+  }
+}

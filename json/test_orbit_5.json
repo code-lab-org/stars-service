@@ -1,0 +1,11 @@
+{
+  "satellites": [
+  {
+    "label":"Satellite Default"
+  }		
+  ],
+  "simulation_settings": {
+    "kSecondsPerTick": 1,
+    "kNumTicks": 3600
+  }
+}

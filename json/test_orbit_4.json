@@ -1,0 +1,53 @@
+{
+  "satellites": [
+  {
+    "label":"Constellation 1",
+    "orbit_generator_from_tle": {
+	        "@type":"ORBIT",
+	        "tle_label":"GPM-CORE",
+	        "tle": [ "1 39574U 14009C   20312.76104295  .00004698  00000-0  72484-4 0  9990", 
+                          "2 39574  65.0076  24.2122 0010842 281.7979  78.1951 15.55503858380338" ],
+	        "orbit_planes": 1,
+	        "groups_per_plane": 3,
+	        "sats_in_train": 3,
+	        "sats_in_tandem": 1,
+	        "train_angle": 7,
+	        "tandem_angle": 0
+	      }
+  },		
+  {
+    "label":"Constellation 2",
+    "orbit_generator_from_tle": {
+	        "@type":"ORBIT",
+	        "tle_label":"AQUA",
+	        "tle": [ "1 27424U 02022A   20312.79398764  .00000128  00000-0  38470-4 0  9993", 
+                          "2 27424  98.2043 251.3049 0000174 299.8763 144.9516 14.57114090984796" ],
+	        "orbit_planes": 4,
+	        "groups_per_plane": 11,
+	        "sats_in_train": 1,
+	        "sats_in_tandem": 1,
+	        "train_angle": 0,
+	        "tandem_angle": 0
+	      }
+  },
+  { 
+    "label":"Constellation 3",	
+    "orbit_generator_from_tle": {
+	        "@type":"ORBIT",
+	        "tle_label":"CALIPSO",
+	        "tle": [ "1 29108U 06016B   20312.84538492  .00000175  00000-0  44027-4 0  9998", 
+                         "2 29108  98.2464 259.4918 0001363  80.9207 279.2148 14.62458176773275" ],
+	        "orbit_planes": 1,
+	        "groups_per_plane": 5,
+	        "sats_in_train": 1,
+	        "sats_in_tandem": 2,
+	        "train_angle": 0,
+	        "tandem_angle": 7
+	      }
+	}		
+  ],
+  "simulation_settings": {
+    "kSecondsPerTick": 1,
+    "kNumTicks": 3600
+  }
+}
