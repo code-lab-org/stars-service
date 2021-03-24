@@ -22,6 +22,7 @@
 #include "collaborate/battery.h"
 #include "collaborate/data_logger.h"
 #include "collaborate/data_processor_source.h"
+#include "collaborate/data_processor_sink.h"
 #include "collaborate/data_processor_template.h"
 #include "collaborate/event_logger.h"
 #include "collaborate/modem_uhf_deploy.h"
@@ -63,6 +64,7 @@ void SimpleObservingSystemSimulation() {
   data_log.Simulation(system.nodes().size(), kNumTicks);
   net_log.UnweightedNetwork(system.nodes().size(), kNumTicks);
   event_log.Initialize("info", "info", true);
+  system.SeedMany(kNumTicks, 0);
 
   // Simulation
   for (uint64_t tick = 0; tick < kNumTicks; ++tick) {

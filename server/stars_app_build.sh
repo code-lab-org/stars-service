@@ -14,8 +14,11 @@ cd ..
 ./build/apps/job/stars.out
 cp /translator/plot_testing.py ./util/
 ./util/plot_testing.py
-cp output/* /server/out/$1/
+cp output/events.txt /server/out/$1/events.txt
+cp output/data.nc4 /server/out/$1/data.nc4
+zip -r /server/out/$1/data.zip output
 rm -rf output/*
 cp analysis/* /server/out/$1/
+zip -r /server/out/$1/analysis.zip analysis/*.png
 rm -rf analysis/*
 cd /server          

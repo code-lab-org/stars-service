@@ -33,21 +33,11 @@ $h = parse_json($json);
 # Create the C++ code for the satellite hardware description
 #************************************************************************
 
-$str = '';
-
-$str .= '  DataProcessorTemplate processor;' . "\n";
-$str .= '  Battery battery(0.9333, 6, 12.9, 85);' . "\n";
-$str .= '  SolarPanel panel(29, 0.06, 0, 0, 0, &sun);' . "\n";
-$str .= '  SubsystemPower power_ss(battery, {panel, panel}, 6.2425);' . "\n";
-$str .= '  AntennaDipole comm_antenna(30, 0, 0, 0);' . "\n";
-$str .= '  comm_antenna.Log("output/antenna.nc4");' . "\n";
-$str .= '  ModemUhfDeploy uhf_modem;' . "\n";
-$str .= '  SubsystemComm comm(&comm_antenna, &uhf_modem);' . "\n";
-$str .= '  AntennaHelical sensing_antenna(30, 0, 0, 0);' . "\n";
-$str .= '  SensorCloudRadar cloud_radar("input/nc4/", 10);' . "\n";
-$str .= '  SubsystemSensing cloud(&sensing_antenna, &cloud_radar);' . "\n";
+$str = "\n";
+$str .= "  DataProcessorTemplate processor;\n";
+$str .= "  DataProcessorSource source;\n";
+$str .= "  DataProcessorSink sink;\n";
 $str .= "\n";
-
 
 # "simulation_settings": {
 #    "kSecondsPerTick": 1,
@@ -70,6 +60,55 @@ foreach $sat (@$sats) {
         $label = $sat->{'label'};
 	$str .= "  // $label\n";
 	
+	#"subsystem_power": {
+	#	"battery": {
+	#		"cell_amp_hr": 0.9333,
+	#		"num_cells": 6,
+	#		"voltage_v": 12.9,
+	#		"charging_efficiency": 85
+	#	},
+	#	"solar_panels": [ {
+	#		"efficiency_percent": 29,
+	#		"surface_area_m2": 0.06,
+	#		"orientation_deg": [0,0,0]
+	#       } ],
+	#	"idle_power_w": 6.2425
+	#}
+	
+	$str1 = "\n";
+	$str1 .= "  const double cell_amp_hr_CC = 0.9333;\n";
+	$str1 .= "  const int num_cells_CC = 6;\n";
+	$str1 .= "  const double voltage_v_CC = 12.9;\n";
+	$str1 .= "  const double charging_efficiency_CC = 85.0;\n";
+	$str1 .= "  Battery battery_CC( cell_amp_hr_CC, num_cells_CC, voltage_v_CC, charging_efficiency_CC);\n";
+	$str1 .= "\n";
+	$str1 .= "  const double efficiency_percent_CC[2] = { 29, 29 };\n";
+	$str1 .= "  const double surface_area_m2_CC[2] = { 0.06, 0.06 };\n";
+	$str1 .= "  const double orientation_deg_CC[2][3] = { { 0, 0, 0 }, { 0, 0, 0 } };\n";
+	$str1 .= "  SolarPanel panel_CC_0( efficiency_percent_CC[0], surface_area_m2_CC[0], orientation_deg_CC[0][0], orientation_deg_CC[0][1], orientation_deg_CC[0][2], &sun);\n";
+	$str1 .= "  SolarPanel panel_CC_1( efficiency_percent_CC[1], surface_area_m2_CC[1], orientation_deg_CC[1][0], orientation_deg_CC[1][1], orientation_deg_CC[1][2], &sun);\n";
+	$str1 .= "\n";
+	$str1 .= "  const double idle_power_w_CC = 6.2425;\n";
+	$str1 .= "  SubsystemPower power_ss_CC(battery_CC, {panel_CC_0, panel_CC_1}, idle_power_w_CC);\n";
+	$str1 .= "\n";
+	
+	$str1 .= '  AntennaDipole comm_antenna_CC(30, 0, 0, 0);' . "\n";
+	$str1 .= '  comm_antenna_CC.Log("output/antenna_CC.nc4");' . "\n";
+	$str1 .= '  ModemUhfDeploy uhf_modem_CC;' . "\n";
+	$str1 .= '  SubsystemComm comm_CC(&comm_antenna_CC, &uhf_modem_CC);' . "\n";
+	$str1 .= "\n";
+	
+	$str1 .= '  AntennaHelical sensing_antenna_CC(30, 0, 0, 0);' . "\n";
+	$str1 .= '  SensorCloudRadar cloud_radar_CC("input/nc4/", 60);' . "\n";
+	$str1 .= '  SubsystemSensing cloud_CC(&sensing_antenna_CC, &cloud_radar_CC);' . "\n";
+	$str1 .= "\n";
+	$str1 .= '  SensorRainRadar rain_radar_CC("input/nc4/", 60);' . "\n";
+	$str1 .= '  SubsystemSensing rain_CC(&sensing_antenna_CC, &rain_radar_CC);' . "\n";
+	$str1 .= "\n";
+	
+	$str1 =~ s/CC/$c/gs;
+	
+	$str .= $str1;
 	
 		if( exists $sat->{'orbit_tle_file'} )
 		{
@@ -179,7 +218,7 @@ foreach $sat (@$sats) {
 			}
 		}
 		
-		$str .= "  system.Launch(c_$c, $c, false, comm, cloud, power_ss, \&processor, \&data_log);\n";
+		$str .= "  system.Launch(c_$c, $c, false, comm_$c, cloud_$c, power_ss_$c, \&processor, \&data_log);\n";
 		$str .= "\n";
 
 	$c++;

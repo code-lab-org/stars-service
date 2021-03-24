@@ -28,6 +28,9 @@ RUN apt install -y proj-bin
 RUN apt install -y texlive-latex-extra
 RUN apt install -y libnetcdf-dev
 
+# For mounting Amazon S3 where Nature Run is stored
+# RUN apt install -y s3fs
+
 # Python Packages for STARS COLLABORATE
 RUN pip3 install doxypypy
 RUN pip3 install pylint
